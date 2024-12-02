@@ -25,7 +25,7 @@ Neste passo, seu objetivo é implementar suporte para uma expressão vazia. Uma 
 Implemente sua solução, execute o comando e verifique se todas as linhas são escritas. Você pode automatizar este teste com as ferramentas de linha de comando Unix:
 
 ```sh
-% grep "" test.txt | diff test.txt -
+ grep "" test.txt | diff test.txt -
 %
 ```
 
@@ -36,7 +36,7 @@ Isso mostra que a saída do seu `grep` é igual ao conteúdo do arquivo `test.tx
 Neste passo, seu objetivo é corresponder a um padrão simples de uma letra e retornar o código de saída correto para o shell. Quando um padrão é correspondido, o `grep` deve retornar o código de saída zero e não zero quando nenhum padrão é correspondido.
 
 ```sh
-% grep J rockbands.txt
+ grep J rockbands.txt
 Judas Priest
 Bon Jovi
 Junkyard
@@ -51,7 +51,7 @@ Neste passo, seu objetivo é percorrer uma árvore de diretórios, ou seja, supo
 Então, seu caso de teste para este passo é:
 
 ```sh
-% grep -r Nirvana *
+ grep -r Nirvana *
 rockbands.txt:Nirvana
 test-subdir/BFS1985.txt:Since Bruce Springsteen, Madonna, way before Nirvana
 test-subdir/BFS1985.txt:On the radio was Springsteen, Madonna, way before Nirvana
@@ -64,7 +64,7 @@ test-subdir/BFS1985.txt:Bruce Springsteen, Madonna, way before Nirvana
 Neste passo, seu objetivo é implementar a opção `-v`. Isso inverte a busca, excluindo qualquer resultado que corresponda. Se não gostamos de Madonna, podemos fazer isso:
 
 ```sh
-% grep -r Nirvana * | grep -v Madonna
+ grep -r Nirvana * | grep -v Madonna
 rockbands.txt:Nirvana
 ```
 
@@ -80,7 +80,7 @@ Neste passo, seu objetivo é suportar `\d` e `\w` no padrão de busca. Seus sign
 Use os seguintes dois casos de teste para verificar sua implementação:
 
 ```sh
-% grep "\d" test-subdir/BFS1985.txt
+ grep "\d" test-subdir/BFS1985.txt
 Her dreams went out the door when she turned 24
 There was U2 and Blondie, and music still on MTV
 'Cause she's still preoccupied with 19, 19, 1985, 1985
@@ -91,7 +91,7 @@ There was U2 and Blondie, and music still on MTV
 There was U2 and Blondie, and music still on MTV
 'Cause she's still preoccupied with 19, 19, 1985
 
-% grep "\w" symbols.txt
+ grep "\w" symbols.txt
 pound
 dollar
 ```
@@ -103,7 +103,7 @@ Neste passo, seu objetivo é implementar suporte para correspondência `^` no in
 Você pode testar com:
 
 ```sh
-% grep ^A rockbands.txt
+ grep ^A rockbands.txt
 AC/DC
 Aerosmith
 Accept
@@ -114,7 +114,7 @@ Autograph
 e:
 
 ```sh
-% grep na$ rockbands.txt
+ grep na$ rockbands.txt
 Nirvana
 ```
 
@@ -123,10 +123,10 @@ Nirvana
 Neste passo, seu objetivo é suportar o argumento opcional de linha de comando `-i`, para que você suporte busca insensível a maiúsculas e minúsculas:
 
 ```sh
-% grep A rockbands.txt | wc -l
+ grep A rockbands.txt | wc -l
 8
 
-% grep -i A rockbands.txt | wc -l
+ grep -i A rockbands.txt | wc -l
 58
 ```
 
