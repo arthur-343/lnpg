@@ -25,7 +25,7 @@ Neste passo, seu objetivo é implementar suporte para uma expressão vazia. Uma 
 Implemente sua solução, execute o comando e verifique se todas as linhas são escritas. Você pode automatizar este teste com as ferramentas de linha de comando Unix:
 
 ```sh
- grep "" test.txt | diff test.txt -
+ grep " " test.txt | diff test.txt -
 %
 ```
 
