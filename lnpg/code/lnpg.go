@@ -1,10 +1,10 @@
 package main
 
 import (
-	"bufio"
-	"fmt"
-	"os"
-	"regexp"
+	"bufio"  // Para leitura de arquivos linha a linha
+	"fmt"    // Para exibir mensagens no console
+	"os"     // Para manipular arquivos e acessar argumentos de linha de comando
+	"regexp" // Para trabalhar com expressões regulares
 )
 
 func main() {
@@ -27,37 +27,39 @@ func main() {
 	}
 	defer file.Close()
 
-	// Um map para evitar imprimir a mesma linha mais de uma vez
-	printedLines := make(map[string]bool)
+	// Para cada padrão fornecido
+	for _, pattern := range patterns {
+		// Compila o regex do padrão
+		re, err := regexp.Compile(pattern)
+		if err != nil {
+			fmt.Printf("Erro ao processar regex para padrão %s: %v\n", pattern, err)
+			continue
+		}
 
-	// Lê o arquivo linha por linha
-	scanner := bufio.NewScanner(file)
-	for scanner.Scan() {
-		line := scanner.Text()
+		// Usamos um mapa para garantir que cada linha seja impressa no máximo uma vez para o padrão
+		printed := make(map[string]bool)
 
-		// Verifica se a linha corresponde a algum dos padrões
-		matches := false
-		for _, pattern := range patterns {
-			re, err := regexp.Compile(pattern)
-			if err != nil {
-				fmt.Printf("Erro ao processar regex: %v\n", err)
-				continue
-			}
+		// Reseta o scanner para percorrer o arquivo novamente para cada padrão
+		file.Seek(0, 0)
+		scanner := bufio.NewScanner(file)
+
+		// Lê o arquivo linha por linha para esse padrão
+		for scanner.Scan() {
+			line := scanner.Text()
+
+			// Verifica se a linha corresponde ao padrão atual
 			if re.MatchString(line) {
-				matches = true
-				break
+				// Se a linha ainda não foi impressa, imprime e marca como impressa
+				if !printed[line] {
+					fmt.Println(line)
+					printed[line] = true
+				}
 			}
 		}
 
-		// Se a linha corresponde a algum padrão e ainda não foi impressa, imprima-a
-		if matches && !printedLines[line] {
-			fmt.Println(line)
-			printedLines[line] = true
+		// Verifica se ocorreu algum erro na leitura do arquivo
+		if err := scanner.Err(); err != nil {
+			fmt.Printf("Erro ao ler o arquivo: %v\n", err)
 		}
-	}
-
-	// Verifica se ocorreu algum erro na leitura do arquivo
-	if err := scanner.Err(); err != nil {
-		fmt.Printf("Erro ao ler o arquivo: %v\n", err)
 	}
 }
