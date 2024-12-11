@@ -97,7 +97,7 @@ Aqui, o objetivo é implementar a opção `-v`, que inverte a busca, excluindo q
 **Comando:**
 
 ```bash
-grep -r Nirvana * | ./grep -v Madonna
+grep -r Nirvana * | grep -v Madonna
 ```
 
 Este comando deve excluir as linhas que contêm "Madonna" e mostrar as que contêm "Nirvana", mas não "Madonna".
