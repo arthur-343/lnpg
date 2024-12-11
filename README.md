@@ -30,13 +30,13 @@ O objetivo aqui é implementar suporte para a expressão "all", que corresponde 
 **Comando:**
 
 ```bash
-./grep test.txt "all"
+./grep rockbands.txt "all"
 ```
 
 **Comando para verificar a saída usando diff:**
 
 ```bash
-grep "all" test.txt | diff test.txt -
+grep "all" rockbands.txt | diff rockbands.txt -
 ```
 
 Se sua implementação estiver correta, a saída não mostrará diferenças, indicando que sua implementação corresponde a todas as linhas.
