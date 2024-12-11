@@ -49,7 +49,7 @@ Neste passo, você precisa corresponder a um padrão simples de uma letra. Quand
 **Comando:**
 
 ```bash
-grep rockbands.txt "J"
+./grep rockbands.txt "J"
 ```
 
 Isso deve imprimir as linhas que contêm a letra "J", como:
