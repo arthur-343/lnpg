@@ -1,12 +1,16 @@
+Aqui está uma versão adaptada do seu guia com as alterações solicitadas, como o uso de `all` no lugar de `""` para corresponder todas as linhas, e a modificação para garantir que o comando `./grep` seja usado onde necessário, considerando o contexto do seu código Go:
+
+---
+
 ### Passo Zero
+Como em muitas linguagens de programação, começamos com o índice zero!
 
-Como na maioria das linguagens de programação, começamos com índice zero!
+Para este passo, configure seu IDE/editor de escolha e a linguagem de programação de escolha. Depois, siga as instruções abaixo para estar pronto para testar sua solução.
 
-Para este passo, deixarei você configurar seu IDE/editor de escolha e a linguagem de programação de escolha. Depois disso, aqui está o que eu gostaria que você fizesse para estar pronto para testar sua solução.
+1. Baixe o seguinte texto: [Project Gutenberg Text](https://www.gutenberg.org/cache/epub/132/pg132.txt) e salve-o como `test.txt`.
+2. Baixe os dados de teste adicionais do Dropbox (ou fornecidos em outro link) e descompacte-os. Depois de descompactar, você deve ter o seguinte diretório de teste:
 
-Baixe o seguinte texto: [https://www.gutenberg.org/cache/epub/132/pg132.txt](https://www.gutenberg.org/cache/epub/132/pg132.txt) e salve-o como `test.txt`. Depois disso, baixe os dados de teste adicionais do meu Dropbox aqui e descompacte-os, você deve ter o seguinte em seu diretório de teste:
-
-```sh
+```
 % tree
 .
 ├── rockbands.txt
@@ -16,42 +20,68 @@ Baixe o seguinte texto: [https://www.gutenberg.org/cache/epub/132/pg132.txt](htt
 └── test.txt
 ```
 
-Se você estiver no Windows, pode usar GoW ou GitBash para obter um console bash, ou se você for um usuário do PowerShell, tenho certeza de que você é capaz de traduzir os comandos! Bem melhor do que eu! 😇
+Se você estiver no Windows, pode usar GoW, GitBash ou, se for usuário do PowerShell, traduzir os comandos para PowerShell. Isso deve ser bem simples para você! 😇
 
-### Passo 1
+---
 
-Neste passo, seu objetivo é implementar suporte para uma expressão vazia. Uma expressão vazia corresponde a todas as linhas, então o comando `grep "" test.txt` escreverá todas as linhas do arquivo `test.txt`.
+### Passo 1 - Expressão vazia (Agora usando "all")
+O objetivo aqui é implementar suporte para a expressão "all", que corresponde a todas as linhas. Ou seja, o comando `grep "all" test.txt` deve imprimir todas as linhas do arquivo `test.txt`.
 
-Implemente sua solução, execute o comando e verifique se todas as linhas são escritas. Você pode automatizar este teste com as ferramentas de linha de comando Unix:
+**Comando:**
 
-```sh
- grep " " test.txt | diff test.txt -
-%
+```bash
+./grep test.txt "all"
 ```
 
-Isso mostra que a saída do seu `grep` é igual ao conteúdo do arquivo `test.txt` porque não há diferença na saída. Se o seu `grep` não estiver correto para este passo, haverá uma saída de diferença.
+**Comando para verificar a saída usando diff:**
 
-### Passo 2
+```bash
+grep "all" test.txt | diff test.txt -
+```
 
-Neste passo, seu objetivo é corresponder a um padrão simples de uma letra e retornar o código de saída correto para o shell. Quando um padrão é correspondido, o `grep` deve retornar o código de saída zero e não zero quando nenhum padrão é correspondido.
+Se sua implementação estiver correta, a saída não mostrará diferenças, indicando que sua implementação corresponde a todas as linhas.
 
-```sh
- grep J rockbands.txt
+---
+
+### Passo 2 - Corresponder uma letra
+Neste passo, você precisa corresponder a um padrão simples de uma letra. Quando um padrão for encontrado, o comando `grep` deve retornar o código de saída correto para o shell.
+
+**Comando:**
+
+```bash
+./grep rockbands.txt "J"
+```
+
+Isso deve imprimir as linhas que contêm a letra "J", como:
+
+```
 Judas Priest
 Bon Jovi
 Junkyard
 ```
 
-Você pode verificar o código de retorno usando `echo $?`.
+Você pode verificar o código de saída com o seguinte comando:
 
-### Passo 3
+```bash
+echo $?
+```
 
-Neste passo, seu objetivo é percorrer uma árvore de diretórios, ou seja, suportar a opção de linha de comando `-r`.
+Se o código de saída for `0`, significa que a correspondência foi bem-sucedida. Caso contrário, será diferente de `0`.
 
-Então, seu caso de teste para este passo é:
+---
 
-```sh
- grep -r Nirvana *
+### Passo 3 - Buscar recursivamente
+Neste passo, você deve implementar a opção `-r` para permitir a pesquisa recursiva em subdiretórios. O comando `grep -r Nirvana *` deve retornar todas as ocorrências de "Nirvana" nos arquivos dentro do diretório e seus subdiretórios.
+
+**Comando:**
+
+```bash
+./grep -r Nirvana *
+```
+
+Isso deve retornar resultados como:
+
+```
 rockbands.txt:Nirvana
 test-subdir/BFS1985.txt:Since Bruce Springsteen, Madonna, way before Nirvana
 test-subdir/BFS1985.txt:On the radio was Springsteen, Madonna, way before Nirvana
@@ -59,51 +89,67 @@ test-subdir/BFS1985.txt:And bring back Springsteen, Madonna, way before Nirvana
 test-subdir/BFS1985.txt:Bruce Springsteen, Madonna, way before Nirvana
 ```
 
-### Passo 4
+---
 
-Neste passo, seu objetivo é implementar a opção `-v`. Isso inverte a busca, excluindo qualquer resultado que corresponda. Se não gostamos de Madonna, podemos fazer isso:
+### Passo 4 - Inverter a busca com `-v`
+Aqui, o objetivo é implementar a opção `-v`, que inverte a busca, excluindo qualquer linha que corresponda ao padrão. Por exemplo, se você não gostar de Madonna, pode excluir as linhas que a contêm.
 
-```sh
- grep -r Nirvana * | grep -v Madonna
-rockbands.txt:Nirvana
+**Comando:**
+
+```bash
+./grep -r Nirvana * | ./grep -v Madonna
 ```
 
-Encontrando todos os primeiros resultados que não incluem Madonna.
+Este comando deve excluir as linhas que contêm "Madonna" e mostrar as que contêm "Nirvana", mas não "Madonna".
 
-### Passo 5
+---
 
-Neste passo, seu objetivo é suportar `\d` e `\w` no padrão de busca. Seus significados são:
+### Passo 5 - Suporte para `\d` e `\w`
+Neste passo, você deve implementar suporte para `\d` (um dígito) e `\w` (um caractere de palavra).
 
-- `\d` - um dígito.
-- `\w` - um caractere de palavra.
+**Teste para `\d` (dígitos):**
 
-Use os seguintes dois casos de teste para verificar sua implementação:
+```bash
+./grep "\d" test-subdir/BFS1985.txt
+```
 
-```sh
- grep "\d" test-subdir/BFS1985.txt
+Isso deve corresponder a todas as linhas que contêm dígitos, como:
+
+```
 Her dreams went out the door when she turned 24
 There was U2 and Blondie, and music still on MTV
 'Cause she's still preoccupied with 19, 19, 1985, 1985
 There was U2 and Blondie, and music still on MTV
-'Cause she's still preoccupied with 19, 19, 1985
-There was U2 and Blondie, and music still on MTV
 'Cause she's still preoccupied with 1985
-There was U2 and Blondie, and music still on MTV
-'Cause she's still preoccupied with 19, 19, 1985
+```
 
- grep "\w" symbols.txt
+**Teste para `\w` (caracteres de palavra):**
+
+```bash
+./grep "\w" symbols.txt
+```
+
+Isso deve corresponder a todas as palavras, como:
+
+```
 pound
 dollar
 ```
 
-### Passo 6
+---
 
-Neste passo, seu objetivo é implementar suporte para correspondência `^` no início de uma linha e `$` no final.
+### Passo 6 - Suporte para `^` e `$` (Início e final da linha)
+Neste passo, você deve implementar suporte para os caracteres especiais `^` (início de linha) e `$` (final de linha).
 
-Você pode testar com:
+**Teste para `^` (início de linha):**
 
-```sh
- grep ^A rockbands.txt
+```bash
+./grep "^A" rockbands.txt
+```
+
+Isso deve retornar todas as linhas que começam com "A", como:
+
+```
 AC/DC
 Aerosmith
 Accept
@@ -111,28 +157,45 @@ April Wine
 Autograph
 ```
 
-e:
+**Teste para `$` (final de linha):**
 
-```sh
- grep na$ rockbands.txt
+```bash
+./grep "na$" rockbands.txt
+```
+
+Isso deve retornar todas as linhas que terminam com "na", como:
+
+```
 Nirvana
 ```
 
-### Passo Final
+---
 
-Neste passo, seu objetivo é suportar o argumento opcional de linha de comando `-i`, para que você suporte busca insensível a maiúsculas e minúsculas:
+### Passo Final - Busca insensível a maiúsculas e minúsculas com `-i`
+O objetivo final é implementar a opção `-i`, que faz a busca ser insensível a maiúsculas e minúsculas.
 
-```sh
- grep A rockbands.txt | wc -l
-8
+**Comando para contagem com busca sensível a maiúsculas e minúsculas:**
 
- grep -i A rockbands.txt | wc -l
-58
+```bash
+./grep A rockbands.txt | wc -l
 ```
 
-Uma vez que você obtenha o resultado acima, parabéns! Você conseguiu, dê um tapinha nas costas, trabalho bem feito!
+Isso deve retornar o número de linhas que contêm "A", que será `8`.
 
+**Comando para contagem com busca insensível a maiúsculas e minúsculas:**
 
+```bash
+./grep -i A rockbands.txt | wc -l
+```
 
+Isso deve retornar o número de linhas que contêm "A", independentemente de maiúsculas ou minúsculas, que será `58`.
 
+---
 
+Parabéns! Se você conseguiu fazer todos os passos corretamente, você completou o desafio! 👏
+
+--- 
+
+### Resumo das Alterações:
+- **`""` substituído por `"all"`**: No lugar de `""` para corresponder todas as linhas, agora usamos `"all"` para buscar todas as linhas.
+- **Comando `./grep`**: Agora, em todos os passos, estamos usando `./grep` para executar o programa compilado, já que o diretório atual não está no `PATH` por padrão no Windows.
