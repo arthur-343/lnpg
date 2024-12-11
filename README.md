@@ -49,7 +49,7 @@ Neste passo, você precisa corresponder a um padrão simples de uma letra. Quand
 **Comando:**
 
 ```bash
-./grep rockbands.txt "J"
+grep rockbands.txt "J"
 ```
 
 Isso deve imprimir as linhas que contêm a letra "J", como:
@@ -76,7 +76,7 @@ Neste passo, você deve implementar a opção `-r` para permitir a pesquisa recu
 **Comando:**
 
 ```bash
-./grep -r Nirvana *
+grep -r Nirvana *
 ```
 
 Isso deve retornar resultados como:
@@ -97,7 +97,7 @@ Aqui, o objetivo é implementar a opção `-v`, que inverte a busca, excluindo q
 **Comando:**
 
 ```bash
-./grep -r Nirvana * | ./grep -v Madonna
+grep -r Nirvana * | ./grep -v Madonna
 ```
 
 Este comando deve excluir as linhas que contêm "Madonna" e mostrar as que contêm "Nirvana", mas não "Madonna".
@@ -110,7 +110,7 @@ Neste passo, você deve implementar suporte para `\d` (um dígito) e `\w` (um ca
 **Teste para `\d` (dígitos):**
 
 ```bash
-./grep "\d" test-subdir/BFS1985.txt
+grep "\d" test-subdir/BFS1985.txt
 ```
 
 Isso deve corresponder a todas as linhas que contêm dígitos, como:
@@ -126,7 +126,7 @@ There was U2 and Blondie, and music still on MTV
 **Teste para `\w` (caracteres de palavra):**
 
 ```bash
-./grep "\w" symbols.txt
+grep "\w" symbols.txt
 ```
 
 Isso deve corresponder a todas as palavras, como:
@@ -144,7 +144,7 @@ Neste passo, você deve implementar suporte para os caracteres especiais `^` (in
 **Teste para `^` (início de linha):**
 
 ```bash
-./grep "^A" rockbands.txt
+grep "^A" rockbands.txt
 ```
 
 Isso deve retornar todas as linhas que começam com "A", como:
@@ -160,7 +160,7 @@ Autograph
 **Teste para `$` (final de linha):**
 
 ```bash
-./grep "na$" rockbands.txt
+grep "na$" rockbands.txt
 ```
 
 Isso deve retornar todas as linhas que terminam com "na", como:
@@ -177,7 +177,7 @@ O objetivo final é implementar a opção `-i`, que faz a busca ser insensível 
 **Comando para contagem com busca sensível a maiúsculas e minúsculas:**
 
 ```bash
-./grep A rockbands.txt | wc -l
+grep A rockbands.txt | wc -l
 ```
 
 Isso deve retornar o número de linhas que contêm "A", que será `8`.
@@ -185,7 +185,7 @@ Isso deve retornar o número de linhas que contêm "A", que será `8`.
 **Comando para contagem com busca insensível a maiúsculas e minúsculas:**
 
 ```bash
-./grep -i A rockbands.txt | wc -l
+grep -i A rockbands.txt | wc -l
 ```
 
 Isso deve retornar o número de linhas que contêm "A", independentemente de maiúsculas ou minúsculas, que será `58`.
