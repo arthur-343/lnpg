@@ -1,10 +1,10 @@
 package main
 
 import (
-	"bufio"   // Pacote para leitura linha por linha de arquivos.
-	"fmt"     // Pacote para formatação e impressão de mensagens no terminal.
-	"os"      // Pacote para manipulação de arquivos e argumentos da linha de comando.
-	"regexp"  // Pacote para trabalhar com expressões regulares.
+	"bufio"  // Pacote para leitura linha por linha de arquivos.
+	"fmt"    // Pacote para formatação e impressão de mensagens no terminal.
+	"os"     // Pacote para manipulação de arquivos e argumentos da linha de comando.
+	"regexp" // Pacote para trabalhar com expressões regulares.
 )
 
 func main() {
