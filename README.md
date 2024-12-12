@@ -173,7 +173,7 @@ Nirvana
 
 
 ```bash
-grep "a$" rockbands.txt | grep "^T"
+ grep "^T" rockbands.txt | grep "a$"     
 ```
 Isso deve retornar todas as linhas que começão com T e terminam com "a", como:
 
