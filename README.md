@@ -147,7 +147,7 @@ Neste passo, você deve implementar suporte para os caracteres especiais `^` (in
 grep "^A" rockbands.txt
 ```
 
-Isso deve retornar todas as linhas que começam com "A", como:
+Isso deve retornar todas as linhas que começam com "A".
 
 ```
 AC/DC
