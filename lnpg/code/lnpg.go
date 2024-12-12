@@ -35,28 +35,37 @@ func main() {
 	// Garante que o arquivo será fechado após a leitura
 	defer file.Close()
 
-	// Compila a expressão regular do padrão fornecido
-	re, err := regexp.Compile(pattern)
-	// Se a expressão regular não for válida, exibe a mensagem de erro e sai
-	if err != nil {
-		fmt.Printf("Erro ao processar regex para padrão %s: %v\n", pattern, err)
-		return // Sai do programa após o erro
-	}
-
-	// Cria um scanner para ler o arquivo linha por linha
-	scanner := bufio.NewScanner(file)
-	// Lê o arquivo linha por linha
-	for scanner.Scan() {
-		// Obtém a linha atual do arquivo
-		line := scanner.Text()
-
-		// Verifica se o padrão é "all"
-		if pattern == "all" {
-			// Imprime todas as linhas
+	// Verifica se o padrão é "all"
+	if pattern == "all" {
+		// Cria um scanner para ler o arquivo linha por linha
+		scanner := bufio.NewScanner(file)
+		// Lê o arquivo linha por linha
+		for scanner.Scan() {
+			// Obtém a linha atual do arquivo e imprime
+			line := scanner.Text()
 			fmt.Println(line)
-		} else if re.MatchString(line) {
-			// Se a linha corresponder ao padrão, imprime a linha
-			fmt.Println(line)
+		}
+	} else {
+		// Compila a expressão regular do padrão fornecido
+		re, err := regexp.Compile(pattern)
+		// Se a expressão regular não for válida, exibe a mensagem de erro e sai
+		if err != nil {
+			fmt.Printf("Erro ao processar regex para padrão %s: %v\n", pattern, err)
+			return // Sai do programa após o erro
+		}
+
+		// Cria um scanner para ler o arquivo linha por linha
+		scanner := bufio.NewScanner(file)
+		// Lê o arquivo linha por linha
+		for scanner.Scan() {
+			// Obtém a linha atual do arquivo
+			line := scanner.Text()
+
+			// Verifica se a linha corresponde ao padrão fornecido
+			if re.MatchString(line) {
+				// Se a linha corresponder ao padrão, imprime a linha
+				fmt.Println(line)
+			}
 		}
 	}
 
