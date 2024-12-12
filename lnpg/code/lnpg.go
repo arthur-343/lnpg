@@ -58,8 +58,10 @@ func main() {
 	}
 
 	// Verifica se houve algum erro durante a leitura do arquivo
-	if err := scanner.Err(); err != nil {
+	err = scanner.Err()
+	if err != nil {
 		// Se houver erro de leitura, exibe a mensagem de erro
 		fmt.Printf("Erro ao ler o arquivo: %v\n", err)
 	}
+
 }
