@@ -171,6 +171,14 @@ Nirvana
 
 ---
 
+
+```bash
+grep "a$" rockbands.txt | grep "^T"
+```
+Isso deve retornar todas as linhas que começão com T e terminam com "a", como:
+
+---
+
 ### Passo Final - Busca insensível a maiúsculas e minúsculas com `-i`
 O objetivo final é implementar a opção `-i`, que faz a busca ser insensível a maiúsculas e minúsculas.
 
@@ -190,12 +198,14 @@ grep -i A rockbands.txt | wc -l
 
 Isso deve retornar o número de linhas que contêm "A", independentemente de maiúsculas ou minúsculas, que será `58`.
 
+-l: Conta o número de linhas.
+
+-w: Conta o número de palavras.
+
+-c: Conta o número de caracteres.
+
 ---
 
 Parabéns! Se você conseguiu fazer todos os passos corretamente, você completou o desafio! 👏
 
 --- 
-
-### Resumo das Alterações:
-- **`""` substituído por `"all"`**: No lugar de `""` para corresponder todas as linhas, agora usamos `"all"` para buscar todas as linhas.
-- **Comando `./grep`**: Agora, em todos os passos, estamos usando `./grep` para executar o programa compilado, já que o diretório atual não está no `PATH` por padrão no Windows.
